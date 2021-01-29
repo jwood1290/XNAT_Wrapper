@@ -1,0 +1,80 @@
+
+XNAT Wrapper Documentation
+**************************
+
+Introduction
+============
+
+``xnat_wrapper`` is a wrapper that streamlines the functionality of ``pyxnat`` and allows the user to easily create, edit, and run analysis functions on XNAT projects, sessions, and scans. 
+
+Usage
+=====
+
+The ``xnat_wrapper`` utility consists of three classes:
+
+* Connector
+* UIDImporter (``Connector.importer``)
+* CommandUtility (``Connector.commands``)
+
+To start an XNAT connection, initialize the connector class using either of these options (optionally including a project name):
+By supplying the server, username, and password:
+
+.. code-block:: python
+
+    xnat = Connector(server='your.xnat.instance.ip.address',user='username',password='password',project='project_name')
+
+or by supplying a configuration file containing all three (in JSON format):
+
+.. code-block:: python
+
+    xnat = Connector(config='xnat_login.cfg', project='project_name')
+
+Access the importer utility to set a list of UIDs, find them, and import them into your project:
+
+.. code-block:: python
+
+    xnat.importer.set_uids(uid_list)
+    xnat.importer.find_studies()
+    import_success = xnat.importer.import_studies()
+
+After successfully importing your studies, you can monitor the import queue using:
+
+.. code-block:: python
+
+    xnat.importer.monitor_import_queue()
+
+Once the studies have been imported and downloaded, they can be accessed by using:
+
+.. code-block:: python
+
+    project_studies = xnat.importer.get_studies()
+
+Once that process is complete, you will need to close the XNAT session before exiting the program using:
+
+.. code-block:: python
+
+    xnat.close_session()
+
+For a more in-depth example of functionality, see:
+
+.. toctree::
+    :maxdepth: 2
+    :caption: Examples
+
+    examples
+
+.. toctree::
+    :maxdepth: 2
+    :caption: APIs
+
+    pages/connector
+    pages/uid_importer
+    pages/command_utility
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+

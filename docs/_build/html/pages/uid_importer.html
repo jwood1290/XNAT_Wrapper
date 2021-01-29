@@ -1,0 +1,270 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Study UID Importer API &#8212; XNAT Wrapper 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Command Utility API" href="command_utility.html" />
+    <link rel="prev" title="XNAT Server Connection" href="connector.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-src.uid_importer">
+<span id="study-uid-importer-api"></span><h1>Study UID Importer API<a class="headerlink" href="#module-src.uid_importer" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="src.uid_importer.UIDImporter">
+<em class="property">class </em><code class="sig-prename descclassname">src.uid_importer.</code><code class="sig-name descname">UIDImporter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">xnat</span></em>, <em class="sig-param"><span class="n">project</span></em>, <em class="sig-param"><span class="n">uids</span><span class="o">=</span><span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">filters</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">studies</span><span class="o">=</span><span class="default_value">{}</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.uid_importer.UIDImporter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class that provides methods to import studies/scans to an XNAT 
+project using a list of study UIDs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>xnat</strong> (<em>class</em>) – An open XNAT connection via pyxnat.Interface()</p></li>
+<li><p><strong>project</strong> (<em>str</em>) – Name of the XNAT project</p></li>
+<li><p><strong>uids</strong> (<em>str</em><em> or </em><em>list</em><em>, </em><em>optional</em>) – A list of study UIDs that will be imported</p></li>
+<li><p><strong>filters</strong> (<em>dict</em><em>, </em><em>optional</em>) – Dictionary with keys corresponding to the keyword 
+(e.g. <cite>seriesDescription</cite>) and values corresponding to a list 
+of approved values (e.g. [<cite>Ax T1</cite>,`Ax T2`]).</p></li>
+<li><p><strong>studies</strong> (<em>dict</em><em>, </em><em>optional</em>) – Dictionary with key values corresponding to study 
+UIDs and values corresponding to study descriptions.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="src.uid_importer.UIDImporter.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">xnat</span></em>, <em class="sig-param"><span class="n">project</span></em>, <em class="sig-param"><span class="n">uids</span><span class="o">=</span><span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">filters</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">studies</span><span class="o">=</span><span class="default_value">{}</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.uid_importer.UIDImporter.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor method</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="src.uid_importer.UIDImporter.__weakref__">
+<code class="sig-name descname">__weakref__</code><a class="headerlink" href="#src.uid_importer.UIDImporter.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.uid_importer.UIDImporter.check_import_queue">
+<code class="sig-name descname">check_import_queue</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.uid_importer.UIDImporter.check_import_queue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks the XNAT import queue for all items related to the project</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>project</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the project which will be used to filter the studies</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary containing the total number of sessions, total number of scans, and a list of all sessions</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.uid_importer.UIDImporter.find_studies">
+<code class="sig-name descname">find_studies</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uids</span><span class="o">=</span><span class="default_value">[]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.uid_importer.UIDImporter.find_studies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find studies using a list of study UIDs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>uids</strong> (<em>list</em><em>, </em><em>optional</em>) – List of study UIDs</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.uid_importer.UIDImporter.get_studies">
+<code class="sig-name descname">get_studies</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.uid_importer.UIDImporter.get_studies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the list of currently loaded studies</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dictionary with key values corresponding to study UIDs</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.uid_importer.UIDImporter.import_studies">
+<code class="sig-name descname">import_studies</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">studies</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.uid_importer.UIDImporter.import_studies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Imports a list of studies into an XNAT project</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>studies</strong> (<em>dict</em><em>, </em><em>optional</em>) – Dictionary with key values corresponding to study UIDs</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><cite>True</cite> if request was successful, <cite>False</cite> otherwise</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.uid_importer.UIDImporter.monitor_import_queue">
+<code class="sig-name descname">monitor_import_queue</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">180</span></em>, <em class="sig-param"><span class="n">time_refresh</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.uid_importer.UIDImporter.monitor_import_queue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Monitors the status of studies that are being imported to a project.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timeout</strong> (<em>int</em><em>, </em><em>optional</em>) – The amount of time (in seconds) to monitor the queue, defaults to 180</p></li>
+<li><p><strong>time_refresh</strong> (<em>bool</em><em>, </em><em>optional</em>) – Tells the monitor whether or not to restart the timeout if there is a status change, defaults to True</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.uid_importer.UIDImporter.set_filters">
+<code class="sig-name descname">set_filters</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filt</span><span class="o">=</span><span class="default_value">{}</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.uid_importer.UIDImporter.set_filters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the filters that will be used to filter the list of studies 
+imported into a project.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filt</strong> (<em>dict</em><em>, </em><em>optional</em>) – Dictionary with keys corresponding to the keyword 
+(e.g. <cite>seriesDescription</cite>) and values corresponding to a list 
+of approved values (e.g. [<cite>Ax T1</cite>,`Ax T2`]).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.uid_importer.UIDImporter.set_project">
+<code class="sig-name descname">set_project</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.uid_importer.UIDImporter.set_project" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the project name for the UID importer</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>project</strong> (<em>str</em>) – Name of the XNAT project</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.uid_importer.UIDImporter.set_scp_params">
+<code class="sig-name descname">set_scp_params</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.uid_importer.UIDImporter.set_scp_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the parameters for the XNAT DICOM/SCP connection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>project</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the XNAT project to use</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.uid_importer.UIDImporter.set_uids">
+<code class="sig-name descname">set_uids</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uids</span><span class="o">=</span><span class="default_value">[]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.uid_importer.UIDImporter.set_uids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the UIDs that the import tool will 
+look for and download (if found).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>uids</strong> (<em>list</em><em> or </em><em>str</em><em>, </em><em>optional</em>) – Single or list of study UIDs</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">XNAT Wrapper</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html#usage">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">XNAT Wrapper Examples</a></li>
+</ul>
+<p class="caption"><span class="caption-text">APIs</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="connector.html">XNAT Server Connection</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Study UID Importer API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_utility.html">Command Utility API</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="connector.html" title="previous chapter">XNAT Server Connection</a></li>
+      <li>Next: <a href="command_utility.html" title="next chapter">Command Utility API</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, John Wood.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/pages/uid_importer.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

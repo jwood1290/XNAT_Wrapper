@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>XNAT Server Connection &#8212; XNAT Wrapper 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Study UID Importer API" href="uid_importer.html" />
+    <link rel="prev" title="XNAT Wrapper Examples" href="../examples.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-src.connector">
+<span id="xnat-server-connection"></span><h1>XNAT Server Connection<a class="headerlink" href="#module-src.connector" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="src.connector.Connector">
+<em class="property">class </em><code class="sig-prename descclassname">src.connector.</code><code class="sig-name descname">Connector</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.connector.Connector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class that provides methods to connect to an XNAT instance. 
+Either pass the <cite>config</cite> parameter by itself or pass each of 
+the <cite>server</cite>, <cite>user</cite>, and <cite>password</cite> parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> (<em>str</em>) – The name of the XNAT login config file</p></li>
+<li><p><strong>server</strong> (<em>str</em>) – The XNAT server IP address</p></li>
+<li><p><strong>user</strong> (<em>str</em>) – The username for the XNAT session</p></li>
+<li><p><strong>password</strong> (<em>str</em>) – The password for the XNAT session</p></li>
+<li><p><strong>project</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of an XNAT project</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="src.connector.Connector.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.connector.Connector.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor method</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="src.connector.Connector.__weakref__">
+<code class="sig-name descname">__weakref__</code><a class="headerlink" href="#src.connector.Connector.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.connector.Connector.close_session">
+<code class="sig-name descname">close_session</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.connector.Connector.close_session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disconnects from the current XNAT session</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.connector.Connector.initialize_session">
+<code class="sig-name descname">initialize_session</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">login</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.connector.Connector.initialize_session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an XNAT interface that can be used to interact 
+with projects, sessions, and scans.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>login</strong> (<em>dict</em>) – A dictionary containing a config file or server, user, and password</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="src.connector.Connector.set_project">
+<code class="sig-name descname">set_project</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.connector.Connector.set_project" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the project for entire XNAT connection 
+(importer and command utilites included).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>project</strong> (<em>str</em>) – The name of the XNAT project</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">XNAT Wrapper</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html#usage">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">XNAT Wrapper Examples</a></li>
+</ul>
+<p class="caption"><span class="caption-text">APIs</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">XNAT Server Connection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uid_importer.html">Study UID Importer API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_utility.html">Command Utility API</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../examples.html" title="previous chapter">XNAT Wrapper Examples</a></li>
+      <li>Next: <a href="uid_importer.html" title="next chapter">Study UID Importer API</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, John Wood.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/pages/connector.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
