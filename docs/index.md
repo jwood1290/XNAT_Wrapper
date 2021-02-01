@@ -1,13 +1,6 @@
-XNAT Wrapper Documentation
-**************************
+.. mdinclude:: ../README.md
 
-.. toctree::
-    :maxdepth: 2
-
-    readme
-
-Examples and APIs
------------------
+## Examples and APIs
 
 For a more in-depth example of functionality, see:
 
@@ -18,15 +11,14 @@ For a more in-depth example of functionality, see:
     examples
 
 .. toctree::
-    :maxdepth: 3
+    :maxdepth: 2
     :caption: APIs
 
     pages/connector
     pages/uid_importer
     pages/command_utility
 
-Indices and tables
-------------------
+## Indices and tables
 
 * :ref:`genindex`
 * :ref:`modindex`

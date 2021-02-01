@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>XNAT Wrapper Examples &#8212; XNAT Wrapper 0.1.0 documentation</title>
+    <title>Connect to XNAT, Import Studies, and Run Commands &#8212; XNAT Wrapper 0.1.1 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -23,19 +23,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head><body>
-  
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">XNAT Wrapper</a></h1>
 
-    <div class="document">
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=jwood1290&repo=XNAT_Wrapper&type=watch&count=False&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Connect to XNAT, Import Studies, and Run Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">APIs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pages/connector.html">XNAT Connection API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/uid_importer.html">Study UID Importer API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/command_utility.html">Command Utility API</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
       <div class="documentwrapper">
         <div class="bodywrapper">
           
 
           <div class="body" role="main">
             
-  <div class="section" id="xnat-wrapper-examples">
-<h1>XNAT Wrapper Examples<a class="headerlink" href="#xnat-wrapper-examples" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="connect-to-xnat-import-studies-and-run-commands">
-<h2>Connect to XNAT, Import Studies, and Run Commands<a class="headerlink" href="#connect-to-xnat-import-studies-and-run-commands" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="connect-to-xnat-import-studies-and-run-commands">
+<h1>Connect to XNAT, Import Studies, and Run Commands<a class="headerlink" href="#connect-to-xnat-import-studies-and-run-commands" title="Permalink to this headline">¶</a></h1>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;This example will open an XNAT connection using the `Connector` class, </span>
 <span class="sd">	find studies using a list of study UIDs, download those studies from PACS </span>
 <span class="sd">	into an XNAT project, convert the XNAT file structure to BIDS format, run </span>
@@ -179,70 +219,14 @@
 </pre></div>
 </div>
 </div>
-</div>
 
 
           </div>
           
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">XNAT Wrapper</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Examples</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">XNAT Wrapper Examples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#connect-to-xnat-import-studies-and-run-commands">Connect to XNAT, Import Studies, and Run Commands</a></li>
-</ul>
-</li>
-</ul>
-<p class="caption"><span class="caption-text">APIs</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="pages/connector.html">XNAT Connection API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pages/uid_importer.html">Study UID Importer API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pages/command_utility.html">Command Utility API</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="index.html" title="previous chapter">XNAT Wrapper Documentation</a></li>
-      <li>Next: <a href="pages/connector.html" title="next chapter">XNAT Connection API</a></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
+    <div class="clearer"></div>
+  </div>
     <div class="footer">
       &copy;2021, John Wood.
       
