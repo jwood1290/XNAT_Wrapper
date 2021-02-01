@@ -67,9 +67,8 @@ html_theme_options = {
 	'github_banner': False,
 	'github_button': True,
 	'github_count': False,
-	'fixed_sidebar': True,
 }
 
-html_sidebars = {
-   '**': ['about.html', 'localtoc.html', 'navigation.html', 'searchbox.html']
-}
+# html_sidebars = {
+#    '**': ['about.html', 'localtoc.html', 'navigation.html', 'searchbox.html']
+# }
