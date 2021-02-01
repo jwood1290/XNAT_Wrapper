@@ -1,7 +1,9 @@
-XNAT Server Connection
-**********************
+.. _connection-api:
 
-.. automodule:: src.connector
+XNAT Connection API
+*******************
+
+.. automodule:: xnat_wrapper.connector
     :members:
     :private-members:
     :special-members:
