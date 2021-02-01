@@ -88,7 +88,7 @@ For a more in-depth example of functionality, see:
     examples
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 3
     :caption: APIs
 
     pages/connector

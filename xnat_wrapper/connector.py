@@ -1,7 +1,7 @@
 from pyxnat import Interface
-from src.utils import format_err
-from src.uid_importer import UIDImporter
-from src.command_utility import CommandUtility
+from .utils import format_err
+from .uid_importer import UIDImporter
+from .command_utility import CommandUtility
 
 
 class Connector(object):

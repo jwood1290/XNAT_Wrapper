@@ -14,7 +14,7 @@
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="XNAT Server Connection" href="pages/connector.html" />
+    <link rel="next" title="XNAT Connection API" href="pages/connector.html" />
     <link rel="prev" title="XNAT Wrapper Documentation" href="index.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -36,192 +36,146 @@
 <h1>XNAT Wrapper Examples<a class="headerlink" href="#xnat-wrapper-examples" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="connect-to-xnat-import-studies-and-run-commands">
 <h2>Connect to XNAT, Import Studies, and Run Commands<a class="headerlink" href="#connect-to-xnat-import-studies-and-run-commands" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;This example will open an XNAT connection using the `Connector` class,</span>
-<span class="sd">find studies using a list of study UIDs, download those studies from PACS</span>
-<span class="sd">into an XNAT project, convert the XNAT file structure to BIDS format, run</span>
-<span class="sd">the XNAT MRIQC docker container on the project, and finally save the MRIQC</span>
-<span class="sd">results to a CSV file.</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;This example will open an XNAT connection using the `Connector` class, </span>
+<span class="sd">	find studies using a list of study UIDs, download those studies from PACS </span>
+<span class="sd">	into an XNAT project, convert the XNAT file structure to BIDS format, run </span>
+<span class="sd">	the XNAT MRIQC docker container on the project, and finally save the MRIQC </span>
+<span class="sd">	results to a CSV file.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">src.utils</span> <span class="kn">import</span> <span class="n">format_err</span><span class="p">,</span> <span class="n">json_to_csv</span>
-<span class="kn">from</span> <span class="nn">src.connector</span> <span class="kn">import</span> <span class="n">Connector</span>
-
+<span class="kn">from</span> <span class="nn">constants</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">..xnat_wrapper</span> <span class="kn">import</span> <span class="p">(</span>
+	<span class="n">Connector</span><span class="p">,</span>
+	<span class="n">format_err</span><span class="p">,</span>
+	<span class="n">json_to_csv</span>
+<span class="p">)</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Start the logging utility that will output to the terminal</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span>
-        <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> - </span><span class="si">%(name)s</span><span class="s1"> - </span><span class="si">%(levelname)s</span><span class="s1"> - </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
+	<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">	Login to XNAT session using config file. As an alternative, </span>
+<span class="sd">	log into session via server, username, and password:</span>
 
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Define the XNAT project name</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">project</span> <span class="o">=</span> <span class="s1">&#39;upload_test&#39;</span>
+<span class="sd">		xnat = Connector(server=&#39;your.xnat.instance.ip.address&#39;,</span>
+<span class="sd">			user=&#39;username&#39;,</span>
+<span class="sd">			password=&#39;password&#39;,</span>
+<span class="sd">			project=project)</span>
 
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Login to XNAT session using config file. As an alternative,</span>
-<span class="sd">    log into session via server, username, and password:</span>
+<span class="sd">	This now contains the XNAT connection, the importer utility </span>
+<span class="sd">	(xnat.importer), and the command utility (xnat.commands).</span>
+<span class="sd">	&#39;&#39;&#39;</span>
+	<span class="n">xnat</span> <span class="o">=</span> <span class="n">Connector</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">login_file</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="n">project</span><span class="p">)</span>
 
-<span class="sd">        xnat = Connector(</span>
-<span class="sd">            server=&#39;your.xnat.instance.ip.address&#39;,</span>
-<span class="sd">            user=&#39;username&#39;,</span>
-<span class="sd">            password=&#39;password&#39;,</span>
-<span class="sd">            project=project)</span>
+	<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">	Import list of studies from PACS to an XNAT project</span>
+<span class="sd">	&#39;&#39;&#39;</span>
+	<span class="k">try</span><span class="p">:</span>
+		<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">		Access the UIDImporter class via `xnat.importer` and define </span>
+<span class="sd">		the study UID(s) you want to add to your project and set </span>
+<span class="sd">		them in the importer utility.</span>
+<span class="sd">		&#39;&#39;&#39;</span>
+		<span class="n">xnat</span><span class="o">.</span><span class="n">importer</span><span class="o">.</span><span class="n">set_uids</span><span class="p">(</span><span class="n">uid_list</span><span class="p">)</span>
 
-<span class="sd">    This now contains the XNAT connection, the importer utility</span>
-<span class="sd">    (xnat.importer), and the command utility (xnat.commands).</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">xnat</span> <span class="o">=</span> <span class="n">Connector</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="s1">&#39;xnat_login.cfg&#39;</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="n">project</span><span class="p">)</span>
+		<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">		Add filters to the import utility to filter out unwanted </span>
+<span class="sd">		data using keyword values in this case, the only returned </span>
+<span class="sd">		studies will have a series description containing either </span>
+<span class="sd">		`Ax T1` or `Ax T2`</span>
+<span class="sd">		&#39;&#39;&#39;</span>
+		<span class="n">xnat</span><span class="o">.</span><span class="n">importer</span><span class="o">.</span><span class="n">set_filters</span><span class="p">(</span><span class="n">filters</span><span class="p">)</span>
 
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Import list of studies from PACS to an XNAT project</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Access the UIDImporter class via `xnat.importer` and define</span>
-<span class="sd">        the study UID(s) you want to add to your project and set</span>
-<span class="sd">        them in the importer utility.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">uid_list</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s1">&#39;study.UID.number.1&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;study.UID.number.2&#39;</span>
-        <span class="p">]</span>
-        <span class="n">xnat</span><span class="o">.</span><span class="n">importer</span><span class="o">.</span><span class="n">set_uids</span><span class="p">(</span><span class="n">uid_list</span><span class="p">)</span>
+		<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">		Find all studies associated with the UID list (and filters). </span>
+<span class="sd">		The studies will be stored in `xnat.importer.studies`.</span>
+<span class="sd">		&#39;&#39;&#39;</span>
+		<span class="n">xnat</span><span class="o">.</span><span class="n">importer</span><span class="o">.</span><span class="n">find_studies</span><span class="p">()</span>
 
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Add filters to the import utility to filter out unwanted</span>
-<span class="sd">        data using keyword values in this case, the only returned</span>
-<span class="sd">        studies will have a series description containing either</span>
-<span class="sd">        `Ax T1` or `Ax T2`</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">filters</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;seriesDescription&#39;</span><span class="p">:</span> <span class="p">[</span>
-                <span class="s2">&quot;Ax T1&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;Ax T2&quot;</span>
-            <span class="p">]</span>
-        <span class="p">}</span>
-        <span class="n">xnat</span><span class="o">.</span><span class="n">importer</span><span class="o">.</span><span class="n">set_filters</span><span class="p">(</span><span class="n">filters</span><span class="p">)</span>
+		<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">		Import the studies that were found into the project. You can </span>
+<span class="sd">		also supply a new project name to this function if you want </span>
+<span class="sd">		to import the studies to a different study. This will return</span>
+<span class="sd">		`True` if the import was successful, otherwise `False`.</span>
+<span class="sd">		&#39;&#39;&#39;</span>
+		<span class="k">if</span> <span class="n">xnat</span><span class="o">.</span><span class="n">importer</span><span class="o">.</span><span class="n">import_studies</span><span class="p">():</span>
 
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Find all studies associated with the UID list (and filters).</span>
-<span class="sd">        The studies will be stored in `xnat.importer.studies`.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">xnat</span><span class="o">.</span><span class="n">importer</span><span class="o">.</span><span class="n">find_studies</span><span class="p">()</span>
+			<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">			Monitor the status of the import process. Optionally, </span>
+<span class="sd">			this process can be called manually using:</span>
+<span class="sd">				&gt;&gt; queue_status = xnat.importer.check_import_queue()</span>
+<span class="sd">			You can also set the the timeout to stop monitoring after </span>
+<span class="sd">			a certain amount of seconds (defaults to 180). This timer </span>
+<span class="sd">			can also be set to refresh each time there is a change in </span>
+<span class="sd">			the import queue by setting time_refresh to `True` (default).</span>
+<span class="sd">			&#39;&#39;&#39;</span>
+			<span class="n">xnat</span><span class="o">.</span><span class="n">importer</span><span class="o">.</span><span class="n">monitor_import_queue</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span> <span class="n">time_refresh</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Import the studies that were found into the project. You can</span>
-<span class="sd">        also supply a new project name to this function if you want</span>
-<span class="sd">        to import the studies to a different study. This will return</span>
-<span class="sd">        `True` if the import was successful, otherwise `False`.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="n">xnat</span><span class="o">.</span><span class="n">importer</span><span class="o">.</span><span class="n">import_studies</span><span class="p">():</span>
+	<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+		<span class="n">format_err</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
 
-            <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Monitor the status of the import process. Optionally,</span>
-<span class="sd">            this process can be called manually using:</span>
-<span class="sd">                &gt;&gt; queue_status = xnat.importer.check_import_queue()</span>
-<span class="sd">            You can also set the the timeout to stop monitoring after</span>
-<span class="sd">            a certain amount of seconds (defaults to 180). This timer</span>
-<span class="sd">            can also be set to refresh each time there is a change in</span>
-<span class="sd">            the import queue by setting time_refresh to `True` (default).</span>
-<span class="sd">            &#39;&#39;&#39;</span>
-            <span class="n">xnat</span><span class="o">.</span><span class="n">importer</span><span class="o">.</span><span class="n">monitor_import_queue</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span> <span class="n">time_refresh</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+	<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">	Run a series of commands on the XNAT project</span>
+<span class="sd">	&#39;&#39;&#39;</span>
+	<span class="k">try</span><span class="p">:</span>
+		<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">		Access the CommandUtility class via `xnat.commands`, which will be used </span>
+<span class="sd">		to run a series of user-defined commands on the files that were uploaded </span>
+<span class="sd">		from the importer class. These commands can be added via `set_commands()` </span>
+<span class="sd">		or explicitly called when using the `run_commands{}` function.</span>
+<span class="sd">		&#39;&#39;&#39;</span>
+		<span class="n">xnat</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">set_commands</span><span class="p">(</span><span class="n">commands</span><span class="p">)</span>
+		
+		<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">		Find all of the sessions and scans associated with a project</span>
+<span class="sd">		&#39;&#39;&#39;</span>
+		<span class="n">xnat</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">find_project_experiments</span><span class="p">()</span>
 
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-        <span class="n">format_err</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
+		<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">		Check that some sessions/scans were found before moving on. Alternatively, </span>
+<span class="sd">		a dictionary containing sessions and scans can be retrieved using the </span>
+<span class="sd">		`get_project_experiments()` function.</span>
+<span class="sd">		&#39;&#39;&#39;</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="n">xnat</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">has_experiments</span><span class="p">():</span> 
+			<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No scans or sessions found in </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">project</span><span class="p">))</span>
 
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Run a series of commands on the XNAT project</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Define the commands that will be run on projects, sessions, and/or scans</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">commands</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;scan&#39;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;dcm2niix&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;opts&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;bids&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">}</span>
-            <span class="p">},</span>
-            <span class="s1">&#39;session&#39;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;dcm2bids-session&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;opts&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;overwrite&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">}</span>
-            <span class="p">},</span>
-            <span class="s1">&#39;project&#39;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;bids-mriqc&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;opts&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;flags&#39;</span><span class="p">:</span><span class="s1">&#39;&#39;</span><span class="p">}</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
+		<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">		Run all of the commands. If the commands were not included in the </span>
+<span class="sd">		initilization of the command utility, they can be defined here.</span>
+<span class="sd">		&#39;&#39;&#39;</span>
+		<span class="n">xnat</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">run_commands</span><span class="p">()</span>
 
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Access the CommandUtility class via `xnat.commands`, which will be used</span>
-<span class="sd">        to run a series of user-defined commands on the files that were uploaded</span>
-<span class="sd">        from the importer class. These commands can be added via `set_commands()`</span>
-<span class="sd">        or explicitly called when using the `run_commands{}` function.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">xnat</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">set_commands</span><span class="p">(</span><span class="n">commands</span><span class="p">)</span>
+		<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">		Write results to file. This function will check that results exist prior to file creation.</span>
+<span class="sd">		The `.json` extension will be added if not supplied.</span>
+<span class="sd">		&#39;&#39;&#39;</span>
+		<span class="n">xnat</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">save_results</span><span class="p">(</span><span class="n">results_file</span><span class="p">)</span>
 
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Find all of the sessions and scans associated with a project</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">xnat</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">find_project_experiments</span><span class="p">()</span>
+		<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">		If the MRIQC function was successful, there should now be JSON files in the project. </span>
+<span class="sd">		Those need to be combined into a single CSV file so the results can be plotted.</span>
+<span class="sd">		&#39;&#39;&#39;</span>
+		<span class="k">if</span> <span class="n">xnat</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">get_results</span><span class="p">():</span>
+			<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">			An XNAT project can also be supplied here if the JSON files are located under </span>
+<span class="sd">			a project other than what was supplied in the initialization of the XNAT instance.</span>
+<span class="sd">			&#39;&#39;&#39;</span>
+			<span class="n">json_files</span> <span class="o">=</span> <span class="n">xnat</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">download_json_files</span><span class="p">(</span><span class="n">resource</span><span class="o">=</span><span class="n">resource_dir</span><span class="p">)</span>
 
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Check that some sessions/scans were found before moving on. Alternatively,</span>
-<span class="sd">        a dictionary containing sessions and scans can be retrieved using the</span>
-<span class="sd">        `get_project_experiments()` function.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">xnat</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">has_experiments</span><span class="p">():</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No scans or sessions found in </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">project</span><span class="p">))</span>
-
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Run all of the commands. If the commands were not included in the</span>
-<span class="sd">        initilization of the command utility, they can be defined here.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">xnat</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">run_commands</span><span class="p">()</span>
-
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Write results to file. This function will check that results exist prior to file creation.</span>
-<span class="sd">        The `.json` extension will be added if not supplied.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">xnat</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">save_results</span><span class="p">(</span><span class="s1">&#39;upload_test_mriqc.json&#39;</span><span class="p">)</span>
-
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        If the MRIQC function was successful, there should now be JSON files in the project.</span>
-<span class="sd">        Those need to be combined into a single CSV file so the results can be plotted.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="n">xnat</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">get_results</span><span class="p">():</span>
-            <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Define the resource folder in which to look for the appropriate JSON files.</span>
-<span class="sd">            An XNAT project can also be supplied here if the JSON files are located under</span>
-<span class="sd">            a project other than what was supplied in the initialization of the XNAT instance.</span>
-<span class="sd">            &#39;&#39;&#39;</span>
-            <span class="n">resource_dir</span> <span class="o">=</span> <span class="s1">&#39;MRIQC&#39;</span>
-            <span class="n">json_files</span> <span class="o">=</span> <span class="n">xnat</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">download_json_files</span><span class="p">(</span><span class="n">resource</span><span class="o">=</span><span class="n">resource_dir</span><span class="p">)</span>
-
-            <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Include additional headers in CSV that are not base key/value pairs</span>
-<span class="sd">            in the json structures (files) returned from XNAT</span>
-<span class="sd">            &#39;&#39;&#39;</span>
-            <span class="n">add_keys</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;subject_id&#39;</span><span class="p">,</span><span class="s1">&#39;session_id&#39;</span><span class="p">,</span><span class="s1">&#39;modality&#39;</span><span class="p">]</span>
-
-            <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            Define the name of the CSV file</span>
-<span class="sd">            &#39;&#39;&#39;</span>
-            <span class="n">json_to_csv</span><span class="p">(</span><span class="n">json_files</span><span class="p">,</span><span class="s1">&#39;mriqc_test&#39;</span><span class="p">,</span><span class="n">keys</span><span class="o">=</span><span class="n">add_keys</span><span class="p">)</span>
+			<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">			Define the name of the CSV file</span>
+<span class="sd">			&#39;&#39;&#39;</span>
+			<span class="n">json_to_csv</span><span class="p">(</span><span class="n">json_files</span><span class="p">,</span><span class="n">results_csv</span><span class="p">,</span><span class="n">keys</span><span class="o">=</span><span class="n">add_keys</span><span class="p">)</span>
 
 
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-        <span class="n">format_err</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
+	<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+		<span class="n">format_err</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
 
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Disconnect XNAT data to prevent multiple instances remaining open at once</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Disconnecting from XNAT session...&#39;</span><span class="p">)</span>
-    <span class="n">xnat</span><span class="o">.</span><span class="n">close_session</span><span class="p">()</span>
+	<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">	Disconnect XNAT data to prevent multiple instances remaining open at once</span>
+<span class="sd">	&#39;&#39;&#39;</span>
+	<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Disconnecting from XNAT session...&#39;</span><span class="p">)</span>
+	<span class="n">xnat</span><span class="o">.</span><span class="n">close_session</span><span class="p">()</span>
 
-    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Process complete.&#39;</span><span class="p">)</span>
+	<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Process complete.&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -253,7 +207,7 @@
 </ul>
 <p class="caption"><span class="caption-text">APIs</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="pages/connector.html">XNAT Server Connection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/connector.html">XNAT Connection API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/uid_importer.html">Study UID Importer API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/command_utility.html">Command Utility API</a></li>
 </ul>
@@ -263,7 +217,7 @@
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="index.html" title="previous chapter">XNAT Wrapper Documentation</a></li>
-      <li>Next: <a href="pages/connector.html" title="next chapter">XNAT Server Connection</a></li>
+      <li>Next: <a href="pages/connector.html" title="next chapter">XNAT Connection API</a></li>
   </ul></li>
 </ul>
 </div>

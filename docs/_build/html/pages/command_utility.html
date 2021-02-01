@@ -31,11 +31,11 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="module-src.command_utility">
-<span id="command-utility-api"></span><h1>Command Utility API<a class="headerlink" href="#module-src.command_utility" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-xnat_wrapper.command_utility">
+<span id="command-utility-api"></span><h1>Command Utility API<a class="headerlink" href="#module-xnat_wrapper.command_utility" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
-<dt id="src.command_utility.CommandUtility">
-<em class="property">class </em><code class="sig-prename descclassname">src.command_utility.</code><code class="sig-name descname">CommandUtility</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">xnat</span></em>, <em class="sig-param"><span class="n">project</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">commands</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">scans</span><span class="o">=</span><span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">sessions</span><span class="o">=</span><span class="default_value">[]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.command_utility.CommandUtility" title="Permalink to this definition">¶</a></dt>
+<dt id="xnat_wrapper.command_utility.CommandUtility">
+<em class="property">class </em><code class="sig-prename descclassname">xnat_wrapper.command_utility.</code><code class="sig-name descname">CommandUtility</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">xnat</span></em>, <em class="sig-param"><span class="n">project</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">commands</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">scans</span><span class="o">=</span><span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">sessions</span><span class="o">=</span><span class="default_value">[]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#xnat_wrapper.command_utility.CommandUtility" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class that provides methods to run commands on XNAT projects, 
 sessions, and scans.</p>
 <dl class="field-list simple">
@@ -52,27 +52,27 @@ name and options as the values.</p></li>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="src.command_utility.CommandUtility.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">xnat</span></em>, <em class="sig-param"><span class="n">project</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">commands</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">scans</span><span class="o">=</span><span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">sessions</span><span class="o">=</span><span class="default_value">[]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.command_utility.CommandUtility.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="xnat_wrapper.command_utility.CommandUtility.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">xnat</span></em>, <em class="sig-param"><span class="n">project</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">commands</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">scans</span><span class="o">=</span><span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">sessions</span><span class="o">=</span><span class="default_value">[]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#xnat_wrapper.command_utility.CommandUtility.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructor method</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="src.command_utility.CommandUtility.__weakref__">
-<code class="sig-name descname">__weakref__</code><a class="headerlink" href="#src.command_utility.CommandUtility.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dt id="xnat_wrapper.command_utility.CommandUtility.__weakref__">
+<code class="sig-name descname">__weakref__</code><a class="headerlink" href="#xnat_wrapper.command_utility.CommandUtility.__weakref__" title="Permalink to this definition">¶</a></dt>
 <dd><p>list of weak references to the object (if defined)</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="src.command_utility.CommandUtility.check_bids_map">
-<code class="sig-name descname">check_bids_map</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.command_utility.CommandUtility.check_bids_map" title="Permalink to this definition">¶</a></dt>
+<dt id="xnat_wrapper.command_utility.CommandUtility.check_bids_map">
+<code class="sig-name descname">check_bids_map</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xnat_wrapper.command_utility.CommandUtility.check_bids_map" title="Permalink to this definition">¶</a></dt>
 <dd><p>Utility to check if a BIDS map exists within an XNAT project.
 If one does not exist, then one will be uploaded.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="src.command_utility.CommandUtility.download_json_files">
-<code class="sig-name descname">download_json_files</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">resource</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.command_utility.CommandUtility.download_json_files" title="Permalink to this definition">¶</a></dt>
+<dt id="xnat_wrapper.command_utility.CommandUtility.download_json_files">
+<code class="sig-name descname">download_json_files</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">resource</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#xnat_wrapper.command_utility.CommandUtility.download_json_files" title="Permalink to this definition">¶</a></dt>
 <dd><p>Downloads data from JSON files located under an XNAT project 
 and (optionally) filtered by a resource name</p>
 <dl class="field-list simple">
@@ -93,8 +93,8 @@ in under a specific XNAT project/resource.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="src.command_utility.CommandUtility.find_and_run_command">
-<code class="sig-name descname">find_and_run_command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">exp_list</span></em>, <em class="sig-param"><span class="n">cmd</span></em>, <em class="sig-param"><span class="n">params</span><span class="o">=</span><span class="default_value">{}</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.command_utility.CommandUtility.find_and_run_command" title="Permalink to this definition">¶</a></dt>
+<dt id="xnat_wrapper.command_utility.CommandUtility.find_and_run_command">
+<code class="sig-name descname">find_and_run_command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">exp_list</span></em>, <em class="sig-param"><span class="n">cmd</span></em>, <em class="sig-param"><span class="n">params</span><span class="o">=</span><span class="default_value">{}</span></em><span class="sig-paren">)</span><a class="headerlink" href="#xnat_wrapper.command_utility.CommandUtility.find_and_run_command" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function that runs a given XNAT command on a list of projects, sessions, of scans.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -114,8 +114,8 @@ in under a specific XNAT project/resource.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="src.command_utility.CommandUtility.find_project_experiments">
-<code class="sig-name descname">find_project_experiments</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.command_utility.CommandUtility.find_project_experiments" title="Permalink to this definition">¶</a></dt>
+<dt id="xnat_wrapper.command_utility.CommandUtility.find_project_experiments">
+<code class="sig-name descname">find_project_experiments</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#xnat_wrapper.command_utility.CommandUtility.find_project_experiments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Finds all of the sessions and scans under an XNAT project.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -125,8 +125,8 @@ in under a specific XNAT project/resource.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="src.command_utility.CommandUtility.get_container_info">
-<code class="sig-name descname">get_container_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">url</span></em>, <em class="sig-param"><span class="n">params</span><span class="o">=</span><span class="default_value">{}</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.command_utility.CommandUtility.get_container_info" title="Permalink to this definition">¶</a></dt>
+<dt id="xnat_wrapper.command_utility.CommandUtility.get_container_info">
+<code class="sig-name descname">get_container_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">url</span></em>, <em class="sig-param"><span class="n">params</span><span class="o">=</span><span class="default_value">{}</span></em><span class="sig-paren">)</span><a class="headerlink" href="#xnat_wrapper.command_utility.CommandUtility.get_container_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get XNAT container/plugin information and check that all required parameters are valid.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -142,8 +142,8 @@ in under a specific XNAT project/resource.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="src.command_utility.CommandUtility.get_inputs">
-<code class="sig-name descname">get_inputs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">search_list</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.command_utility.CommandUtility.get_inputs" title="Permalink to this definition">¶</a></dt>
+<dt id="xnat_wrapper.command_utility.CommandUtility.get_inputs">
+<code class="sig-name descname">get_inputs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">search_list</span></em><span class="sig-paren">)</span><a class="headerlink" href="#xnat_wrapper.command_utility.CommandUtility.get_inputs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Recursively search an XNAT function wrapper for inputs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -159,8 +159,8 @@ in under a specific XNAT project/resource.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="src.command_utility.CommandUtility.get_project_experiments">
-<code class="sig-name descname">get_project_experiments</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.command_utility.CommandUtility.get_project_experiments" title="Permalink to this definition">¶</a></dt>
+<dt id="xnat_wrapper.command_utility.CommandUtility.get_project_experiments">
+<code class="sig-name descname">get_project_experiments</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#xnat_wrapper.command_utility.CommandUtility.get_project_experiments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns all of the sessions and scans in an XNAT project.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -177,8 +177,8 @@ with the respective lists of each as values.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="src.command_utility.CommandUtility.get_results">
-<code class="sig-name descname">get_results</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.command_utility.CommandUtility.get_results" title="Permalink to this definition">¶</a></dt>
+<dt id="xnat_wrapper.command_utility.CommandUtility.get_results">
+<code class="sig-name descname">get_results</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xnat_wrapper.command_utility.CommandUtility.get_results" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the results stored in the command utility object</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -191,8 +191,8 @@ with the respective lists of each as values.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="src.command_utility.CommandUtility.get_wrapper_command">
-<code class="sig-name descname">get_wrapper_command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">xsi</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.command_utility.CommandUtility.get_wrapper_command" title="Permalink to this definition">¶</a></dt>
+<dt id="xnat_wrapper.command_utility.CommandUtility.get_wrapper_command">
+<code class="sig-name descname">get_wrapper_command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">xsi</span></em><span class="sig-paren">)</span><a class="headerlink" href="#xnat_wrapper.command_utility.CommandUtility.get_wrapper_command" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function that looks for a function in an XNAT project matching a name and XSI type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -211,8 +211,8 @@ with the respective lists of each as values.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="src.command_utility.CommandUtility.has_experiments">
-<code class="sig-name descname">has_experiments</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.command_utility.CommandUtility.has_experiments" title="Permalink to this definition">¶</a></dt>
+<dt id="xnat_wrapper.command_utility.CommandUtility.has_experiments">
+<code class="sig-name descname">has_experiments</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#xnat_wrapper.command_utility.CommandUtility.has_experiments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines if a project has experiments (sessions and/or scans)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -228,8 +228,8 @@ with the respective lists of each as values.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="src.command_utility.CommandUtility.run_commands">
-<code class="sig-name descname">run_commands</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">commands</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.command_utility.CommandUtility.run_commands" title="Permalink to this definition">¶</a></dt>
+<dt id="xnat_wrapper.command_utility.CommandUtility.run_commands">
+<code class="sig-name descname">run_commands</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">commands</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#xnat_wrapper.command_utility.CommandUtility.run_commands" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run a series of commands on XNAT projects, sessions, or scans.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -244,8 +244,8 @@ name and options as the values.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="src.command_utility.CommandUtility.run_container">
-<code class="sig-name descname">run_container</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cmd</span></em>, <em class="sig-param"><span class="n">params</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.command_utility.CommandUtility.run_container" title="Permalink to this definition">¶</a></dt>
+<dt id="xnat_wrapper.command_utility.CommandUtility.run_container">
+<code class="sig-name descname">run_container</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cmd</span></em>, <em class="sig-param"><span class="n">params</span></em><span class="sig-paren">)</span><a class="headerlink" href="#xnat_wrapper.command_utility.CommandUtility.run_container" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run an XNAT container/plugin on a project, session, or scan.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -264,8 +264,8 @@ name and options as the values.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="src.command_utility.CommandUtility.save_results">
-<code class="sig-name descname">save_results</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">indent</span><span class="o">=</span><span class="default_value">2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.command_utility.CommandUtility.save_results" title="Permalink to this definition">¶</a></dt>
+<dt id="xnat_wrapper.command_utility.CommandUtility.save_results">
+<code class="sig-name descname">save_results</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em>, <em class="sig-param"><span class="n">indent</span><span class="o">=</span><span class="default_value">2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#xnat_wrapper.command_utility.CommandUtility.save_results" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save results from commands to a JSON file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -280,8 +280,8 @@ include while pretty-printing to output file</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="src.command_utility.CommandUtility.set_commands">
-<code class="sig-name descname">set_commands</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">commands</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.command_utility.CommandUtility.set_commands" title="Permalink to this definition">¶</a></dt>
+<dt id="xnat_wrapper.command_utility.CommandUtility.set_commands">
+<code class="sig-name descname">set_commands</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">commands</span></em><span class="sig-paren">)</span><a class="headerlink" href="#xnat_wrapper.command_utility.CommandUtility.set_commands" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the commands for the command utility</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -293,8 +293,8 @@ name and options as the values.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="src.command_utility.CommandUtility.set_project">
-<code class="sig-name descname">set_project</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.command_utility.CommandUtility.set_project" title="Permalink to this definition">¶</a></dt>
+<dt id="xnat_wrapper.command_utility.CommandUtility.set_project">
+<code class="sig-name descname">set_project</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span></em><span class="sig-paren">)</span><a class="headerlink" href="#xnat_wrapper.command_utility.CommandUtility.set_project" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the project name for the command utility</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -324,15 +324,13 @@ name and options as the values.</p>
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents</span></p>
+<p class="caption"><span class="caption-text">Examples</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../intro.html#usage">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples.html">XNAT Wrapper Examples</a></li>
 </ul>
 <p class="caption"><span class="caption-text">APIs</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="connector.html">XNAT Server Connection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="connector.html">XNAT Connection API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="uid_importer.html">Study UID Importer API</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Command Utility API</a></li>
 </ul>

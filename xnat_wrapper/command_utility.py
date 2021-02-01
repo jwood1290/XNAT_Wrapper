@@ -1,6 +1,6 @@
 import json
 import logging
-from src.utils import (
+from .utils import (
 	format_err, 
 	write_json
 )
