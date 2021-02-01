@@ -1,12 +1,6 @@
 XNAT Wrapper Examples
 =====================
 
-Installation/Usage:
-*******************
-As the package has not been published on PyPi yet, it CANNOT be install using pip.
-
-The only Python package that must be installed prior to running the example(s) is ``pyxnat``, which can be installed by running ``python3 -m pip install -r requirements.txt`` or directly from PyPi using ``python3 -m pip install pyxnat``.
-
 Connect to XNAT, Import Studies, and Run Commands
 *************************************************
 .. code-block:: python
@@ -189,10 +183,6 @@ Connect to XNAT, Import Studies, and Run Commands
 
         except Exception as ex:
             format_err(ex)
-
-        '''
-        TODO: Create box and whisker plots using the data
-        '''
 
         '''
         Disconnect XNAT data to prevent multiple instances remaining open at once

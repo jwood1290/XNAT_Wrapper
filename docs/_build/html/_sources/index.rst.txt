@@ -7,6 +7,21 @@ Introduction
 
 ``xnat_wrapper`` is a wrapper that streamlines the functionality of ``pyxnat`` and allows the user to easily create, edit, and run analysis functions on XNAT projects, sessions, and scans. 
 
+TODO
+****
+
+* Add function to create new project
+* Add function to pull headers from DICOM metadata
+* Add function to convert MRIQC data from CSV/table to "box and whisker" plots
+
+Installation
+************
+As the package has not been published on PyPi yet, it CANNOT be install using pip.
+
+The only Python package that must be installed prior to running the example(s) is ``pyxnat``, which can be installed by running ``python3 -m pip install -r requirements.txt`` or directly from PyPi using ``python3 -m pip install pyxnat``.
+
+Once the required packages are installed, the wrapper must be imported to your script/project by importing the wrapper's ``Connector`` class (see examples).
+
 Usage
 =====
 

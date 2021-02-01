@@ -37,6 +37,20 @@
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">xnat_wrapper</span></code> is a wrapper that streamlines the functionality of <code class="docutils literal notranslate"><span class="pre">pyxnat</span></code> and allows the user to easily create, edit, and run analysis functions on XNAT projects, sessions, and scans.</p>
 </div>
+</div>
+<div class="section" id="todo">
+<h1>TODO<a class="headerlink" href="#todo" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Add function to create new project</p></li>
+<li><p>Add function to pull headers from DICOM metadata</p></li>
+<li><p>Add function to convert MRIQC data from CSV/table to “box and whisker” plots</p></li>
+</ul>
+</div>
+<div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>As the package has not been published on PyPi yet, it CANNOT be install using pip.</p>
+<p>The only Python package that must be installed prior to running the example(s) is <code class="docutils literal notranslate"><span class="pre">pyxnat</span></code>, which can be installed by running <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code> or directly from PyPi using <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pyxnat</span></code>.</p>
+<p>Once the required packages are installed, the wrapper must be imported to your script/project by importing the wrapper’s <code class="docutils literal notranslate"><span class="pre">Connector</span></code> class (see examples).</p>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">xnat_wrapper</span></code> utility consists of three classes:</p>
@@ -77,7 +91,6 @@ By supplying the server, username, and password:</p>
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">XNAT Wrapper Examples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="examples.html#installation-usage">Installation/Usage:</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples.html#connect-to-xnat-import-studies-and-run-commands">Connect to XNAT, Import Studies, and Run Commands</a></li>
 </ul>
 </li>

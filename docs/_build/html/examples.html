@@ -34,11 +34,6 @@
             
   <div class="section" id="xnat-wrapper-examples">
 <h1>XNAT Wrapper Examples<a class="headerlink" href="#xnat-wrapper-examples" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="installation-usage">
-<h2>Installation/Usage:<a class="headerlink" href="#installation-usage" title="Permalink to this headline">¶</a></h2>
-<p>As the package has not been published on PyPi yet, it CANNOT be install using pip.</p>
-<p>The only Python package that must be installed prior to running the example(s) is <code class="docutils literal notranslate"><span class="pre">pyxnat</span></code>, which can be installed by running <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code> or directly from PyPi using <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pyxnat</span></code>.</p>
-</div>
 <div class="section" id="connect-to-xnat-import-studies-and-run-commands">
 <h2>Connect to XNAT, Import Studies, and Run Commands<a class="headerlink" href="#connect-to-xnat-import-studies-and-run-commands" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;This example will open an XNAT connection using the `Connector` class,</span>
@@ -221,10 +216,6 @@
         <span class="n">format_err</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
 
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    TODO: Create box and whisker plots using the data</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-
-    <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Disconnect XNAT data to prevent multiple instances remaining open at once</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Disconnecting from XNAT session...&#39;</span><span class="p">)</span>
@@ -256,7 +247,6 @@
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">XNAT Wrapper Examples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#installation-usage">Installation/Usage:</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#connect-to-xnat-import-studies-and-run-commands">Connect to XNAT, Import Studies, and Run Commands</a></li>
 </ul>
 </li>
