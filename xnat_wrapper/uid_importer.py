@@ -31,9 +31,10 @@ class UIDImporter(object):
 		self.xnat = xnat
 		self.project = project
 		self.studies = studies
+		self.scp = None
+
 		self.set_uids(uids)
 		self.set_filters(filters)
-		self.set_scp_params()
 
 	def set_project(self, project):
 		'''Sets the project name for the UID importer
@@ -80,7 +81,6 @@ class UIDImporter(object):
 		self.scp = None
 		if project is None: project = self.project
 
-		logging.info('Gathering SCP parameters...')
 		try:
 			info = self.xnat.get('/xapi/dicomscp').json()[0]
 			scp_info = {
@@ -88,8 +88,6 @@ class UIDImporter(object):
 				'ae': '{}%3A{}'.format(info['aeTitle'],info['port']),
 				'project': project
 			}
-			logging.info('...success!')
-			logging.debug('SCP Info:\n{}'.format(json.dumps(scp_info,indent=2)))
 			self.scp = scp_info
 		except Exception as ex:
 			format_err(ex)
@@ -165,7 +163,8 @@ class UIDImporter(object):
 		'''
 
 		try:
-			if self.scp is None: 
+			if self.scp is None:
+				self.set_scp_params()
 				logging.warning('Unable to import studies: No dicomscp parameters found.')
 				return False
 

@@ -1,8 +1,9 @@
-'''This example will open an XNAT connection using the `Connector` class, 
-	find studies using a list of study UIDs, download those studies from PACS 
-	into an XNAT project, convert the XNAT file structure to BIDS format, run 
-	the XNAT MRIQC docker container on the project, and finally save the MRIQC 
-	results to a CSV file.
+'''
+This example will open an XNAT connection using the `Connector` class, 
+find studies using a list of study UIDs, download those studies from PACS 
+into an XNAT project, convert the XNAT file structure to BIDS format, run 
+the XNAT MRIQC docker container on the project, and finally save the MRIQC 
+results to a CSV file.
 '''
 
 from constants import *
