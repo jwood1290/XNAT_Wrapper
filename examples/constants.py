@@ -1,19 +1,38 @@
 import logging
 
+'''
+Initialize logging level and format
+'''
 logging.basicConfig(level=logging.INFO,
 		format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
-login_file = 'xnat_login.cfg'
-results_file = 'upload_test_mriqc.json'
-results_csv = 'mriqc_results.csv'
+'''
+XNAT connection variables
+s'''
+xnat_ip = 'your.xnat.ip.address'
+xnat_username = 'xnat_username'
+xnat_password = 'xnat_password'
+xnat_project = 'xnat_example_project'
 
-project = 'upload_test'
+'''
+Filenames to store results in
+'''
+results_file = 'example_mriqc.json'
+results_csv = 'example_mriqc.csv'
 
+'''
+List of study UIDs that you want to import
+'''
 uid_list = [
 	'study.UID.number.1',
 	'study.UID.number.2'
 ]
 
+'''
+List of filters that we will use to only pull files that are relevant 
+to what we are trying to do (in this case, only DICOM files with 
+series descriptions of "Ax T1" and "Ax T2")
+'''
 filters = {
 	'seriesDescription': [
 		"Ax T1",

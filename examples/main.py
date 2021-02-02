@@ -15,18 +15,15 @@ from ..xnat_wrapper import (
 
 if __name__ == '__main__':
 	'''
-	Login to XNAT session using config file. As an alternative, 
-	log into session via server, username, and password:
-
-		xnat = Connector(server='your.xnat.instance.ip.address',
-			user='username',
-			password='password',
-			project=project)
-
-	This now contains the XNAT connection, the importer utility 
+	Login to XNAT session using config file or via server, 
+    username, and password. Also, supply the XNAT project name.
+    This will contain the XNAT connection, the importer utility 
 	(xnat.importer), and the command utility (xnat.commands).
-	'''
-	xnat = Connector(config=login_file, project=project)
+    '''
+    xnat = Connector(server=xnat_ip,
+        user=xnat_username,
+        password=xnat_password,
+        project=xnat_project)
 
 	'''
 	Import list of studies from PACS to an XNAT project
@@ -98,7 +95,7 @@ if __name__ == '__main__':
 		`get_project_experiments()` function.
 		'''
 		if not xnat.commands.has_experiments(): 
-			raise ValueError('No scans or sessions found in {}.'.format(project))
+			raise ValueError('No scans or sessions found in {}.'.format(xnat_project))
 
 		'''
 		Run all of the commands. If the commands were not included in the 
