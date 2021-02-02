@@ -16,14 +16,14 @@ from ..xnat_wrapper import (
 if __name__ == '__main__':
 	'''
 	Login to XNAT session using config file or via server, 
-    username, and password. Also, supply the XNAT project name.
-    This will contain the XNAT connection, the importer utility 
+	username, and password. Also, supply the XNAT project name.
+	This will contain the XNAT connection, the importer utility 
 	(xnat.importer), and the command utility (xnat.commands).
-    '''
-    xnat = Connector(server=xnat_ip,
-        user=xnat_username,
-        password=xnat_password,
-        project=xnat_project)
+	'''
+	xnat = Connector(server=xnat_ip,
+		user=xnat_username,
+		password=xnat_password,
+		project=xnat_project)
 
 	'''
 	Import list of studies from PACS to an XNAT project
