@@ -92,15 +92,20 @@ class UIDImporter(object):
 		except Exception as ex:
 			format_err(ex)
 
-	def find_studies(self, uids=[]):
+	def find_studies(self, uids=[], filters={}):
 		'''Find studies using a list of study UIDs
 
 		:param uids: List of study UIDs
+		:param filters: Dictionary with keys corresponding to the keyword 
+			(e.g. `seriesDescription`) and values corresponding to a list 
+			of approved values (e.g. [`Ax T1`,`Ax T2`]).
 		:type uids: list, optional
+		:type filters: dict, optional
 		'''
 
 		self.studies = {}
 		if uids: self.set_uids(uids)
+		if filters: self.set_filters(filters)
 
 		if not self.uids:
 			logging.warning('Unable to get studies: No UIDs found.')
@@ -114,13 +119,13 @@ class UIDImporter(object):
 			'''
 			res = self.xnat.post('/xapi/dqr/seriesInfo/pacs/1/studies', 
 				data=data_str).json()
-			res.raise_for_status()
 			
 			'''
 			Loop through list of studies and filter out unwanted ones. Any
 			reminaing study information will be added to the "studies" structure
 			'''
 			studies = {}
+			n_series = 0
 			for uid in self.uids:
 				try:
 					tmp = res[uid]
@@ -132,24 +137,37 @@ class UIDImporter(object):
 								if item[k] not in v: add_item = False
 						if add_item: filtered_list.append(item)
 					if len(filtered_list) > 0: 
+						s_desc = list(set([i['seriesDescription'] for i in filtered_list]))
+						s_uids = list(set([i['seriesInstanceUid'] for i in filtered_list]))
 						studies[uid] = {
-							"seriesDescriptions": list(set([i['seriesDescription'] for i in filtered_list])),
-							"seriesInstanceUids": list(set([i['seriesInstanceUid'] for i in filtered_list])),
+							'seriesDescriptions': s_desc,
+							'seriesInstanceUids': s_uids,
 						}
+						n_series += len(s_uids)
 				except Exception as ex:
 					format_err(ex)
 
-			logging.info('Search complete: {} Studies found.'.format(len(studies)))
+			logging.info('Search complete: {} studies with {} series found.'.format(len(studies),n_series))
 			self.studies = studies
 		except Exception as ex:
 			format_err(ex)
 
-	def get_studies(self):
-		'''Get the list of currently loaded studies
+	def get_studies(self, uids=[], filters={}):
+		'''Get the list of currently loaded studies. Alternatively, if 
+		arguments such as uid or filters are found, a new set of studies 
+		will be found and returned.
 
+		:param uids: List of study UIDs
+		:param filters: Dictionary with keys corresponding to the keyword 
+			(e.g. `seriesDescription`) and values corresponding to a list 
+			of approved values (e.g. [`Ax T1`,`Ax T2`]).
+		:type uids: list, optional
+		:type filters: dict, optional
 		:return: Dictionary with key values corresponding to study UIDs
 		:rtype: dict
 		'''
+
+		if uids or filters: self.find_studies(uids, filters)
 
 		return self.studies
 
