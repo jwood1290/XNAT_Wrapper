@@ -24,19 +24,25 @@ class Connector(object):
 
 		self.xnat = None
 		self.project = None
-		self._is_connected = False
 		self.importer = None
 		self.commands = None
 
-		self.initialize_session(**kwargs)
-		self.importer = UIDImporter(self.xnat, self.project)
-		self.commands = CommandUtility(self.xnat, self.project)
+		self._login = None
+		self._uptime = None
+		self._is_connected = False
 
-	def initialize_session(self, **login):
+		self.initialize_session(**kwargs)
+
+	def initialize_session(self, **kwargs):
 		'''Creates an XNAT interface that can be used to interact 
 		with projects, sessions, and scans.
 
-		:param dict login: A dictionary containing a config file or server, user, and password
+		:param str config: The name of the XNAT login config file
+		:param str server: The XNAT server IP address
+		:param str user: The username for the XNAT session
+		:param str password: The password for the XNAT session
+		:param project: The name of an XNAT project
+		:type project: str, optional
 		'''
 
 		if self.xnat is not None:
@@ -44,13 +50,17 @@ class Connector(object):
 				self.close_session()
 			except: pass
 
-		try:
-			valid_keys = ['server','user','password','config']
-			login = {k:v for k,v in login.items() if k in valid_keys}
-			self.xnat = Interface(**login)
+		if 'config' in kwargs:
+			self._login = {'config':kwargs['config']}
+		else:
+			self._login = {k:v for k,v in kwargs.items() if k in ['server','user','password']}
 
-			if 'project' in login: self.project = project
-			self._is_connected = True
+		if 'project' in kwargs: self.project = kwargs['project']
+
+		try:
+			self.xnat = Interface(**self._login)
+			self.importer = UIDImporter(self.xnat, self.project)
+			self.commands = CommandUtility(self.xnat, self.project)
 		except Exception as ex:
 			format_err(ex)
 
@@ -60,6 +70,8 @@ class Connector(object):
 
 		self.xnat.disconnect()
 		self.xnat = None
+		self.importer = None
+		self.commands = None
 		self._is_connected = False
 
 	def set_project(self, project):
@@ -85,10 +97,23 @@ class Connector(object):
 			try:
 				res = self.xnat.get('/xapi/siteConfig/uptime/display')
 				res.raise_for_status()
+				self._uptime = res.text
 				self._is_connected = True
 			except: pass
 
 		return self._is_connected
+
+	def get_uptime(self):
+		'''Returns the server uptime as a string
+
+		:return: Amount of time the server has been online
+		:rtype: str
+		'''
+
+		if self.is_connected():
+			return self._uptime
+		else:
+			return 'WARNING: XNAT server is offline'
 
 
 if __name__ == '__main__': 
