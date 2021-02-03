@@ -21,9 +21,9 @@ if __name__ == '__main__':
 	(xnat.importer), and the command utility (xnat.commands).
 	'''
 	xnat = Connector(server=xnat_ip,
-		user=xnat_username,
-		password=xnat_password,
-		project=xnat_project)
+					user=xnat_username,
+					password=xnat_password,
+					project=xnat_project)
 
 	'''
 	Import list of studies from PACS to an XNAT project
