@@ -64,6 +64,22 @@ class Connector(object):
 		except Exception as ex:
 			format_err(ex)
 
+	def get(self,endpoint,opts={}):
+		'''Gets custom endpoint via xnat.get()
+		'''
+
+		output = {}
+		try:
+			res = self.xnat.get(endpoint,params=opts)
+			res.raise_for_status()
+			try:
+				output = res.json()
+			except:
+				output = res.text
+		except Exception as ex:
+			format_err(ex)
+		return output
+
 	def close_session(self):
 		'''Disconnects from the current XNAT session
 		'''
@@ -99,7 +115,8 @@ class Connector(object):
 				res.raise_for_status()
 				self._uptime = res.text
 				self._is_connected = True
-			except: pass
+			except Exception as ex:
+				format_err(ex)
 
 		return self._is_connected
 
